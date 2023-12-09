@@ -1,4 +1,6 @@
-﻿namespace EvCreating.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EvCreating.Models
 {
     public class Event
     {
@@ -9,5 +11,7 @@
         public string Beschrijving { get; set; }
         public string Soort { get; set; }
         public bool IsDeleted { get; set; }
+        
+
     }
 }

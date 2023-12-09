@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using EvCreating.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EvCreating.Data;
 
@@ -16,9 +17,7 @@ public class EvCreatingContext : IdentityDbContext<EvCreatingUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
     }
 
     public DbSet<EvCreating.Models.Evenement> Evenement { get; set; } = default!;
@@ -32,4 +31,13 @@ public class EvCreatingContext : IdentityDbContext<EvCreatingUser>
     public DbSet<EvCreating.Models.EventComment> EventComment { get; set; } = default!;
 
     public DbSet<EvCreating.Models.EventEvaluation> EventEvaluation { get; set; } = default!;
+    
+}
+public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<EvCreatingUser>
+{
+    public void Configure(EntityTypeBuilder<EvCreatingUser> builder)
+    {
+       builder.Property(u => u.FirstName).HasMaxLength(50);
+       builder.Property(u => u.LastName).HasMaxLength(50);
+    }
 }

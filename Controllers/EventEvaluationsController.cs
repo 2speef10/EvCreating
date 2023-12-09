@@ -21,7 +21,8 @@ namespace EvCreating.Controllers
 
         public IActionResult Create()
         {
-            ViewData["GeselecteerdEvenementen"] = new SelectList(_context.Event, "ID", "Naam");
+            var activeEvents = _context.Event.Where(e => !e.IsDeleted).ToList();
+            ViewData["GeselecteerdEvenementen"] = new SelectList(activeEvents, "ID", "Naam");
             return View();
         }
 

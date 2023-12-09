@@ -4,6 +4,7 @@ using EvCreating.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvCreating.Migrations
 {
     [DbContext(typeof(EvCreatingContext))]
-    partial class EvCreatingContextModelSnapshot : ModelSnapshot
+    [Migration("20231209170202_CommentEventMig")]
+    partial class CommentEventMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,38 +192,6 @@ namespace EvCreating.Migrations
                     b.HasIndex("EventID");
 
                     b.ToTable("EventComment");
-                });
-
-            modelBuilder.Entity("EvCreating.Models.EventEvaluation", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("GeselecteerdEvenementId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Inhoud")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Naam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ReactieDatum")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Waardering")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("GeselecteerdEvenementId");
-
-                    b.ToTable("EventEvaluation");
                 });
 
             modelBuilder.Entity("EvCreating.Models.UserBeheer", b =>
@@ -432,17 +403,6 @@ namespace EvCreating.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("EvCreating.Models.EventEvaluation", b =>
-                {
-                    b.HasOne("EvCreating.Models.Event", "GeselecteerdEvenement")
-                        .WithMany()
-                        .HasForeignKey("GeselecteerdEvenementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GeselecteerdEvenement");
                 });
 
             modelBuilder.Entity("Mening", b =>

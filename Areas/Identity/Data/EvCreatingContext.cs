@@ -28,4 +28,8 @@ public class EvCreatingContext : IdentityDbContext<EvCreatingUser>
     public DbSet<EvCreating.Models.UserBeheer> UserBeheer { get; set; } = default!;
 
     public DbSet<EvCreating.Models.Event> Event { get; set; } = default!;
+
+    public DbSet<EvCreating.Models.EventComment> EventComment { get; set; } = default!;
+
+    public DbSet<EvCreating.Models.EventEvaluation> EventEvaluation { get; set; } = default!;
 }

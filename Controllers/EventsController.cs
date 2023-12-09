@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EvCreating.Data;
 using EvCreating.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EvCreating.Controllers
 {
@@ -16,6 +17,13 @@ namespace EvCreating.Controllers
         {
             _context = context;
         }
+        public IActionResult BeoordeelEvenement()
+        {
+            var evenementen = _context.Event.Select(e => new SelectListItem { Value = e.ID.ToString(), Text = e.Naam }).ToList();
+            ViewBag.Eventen = evenementen;
+            return View();
+        }
+
 
         public async Task<IActionResult> Index(int? selectedMonth)
         {
@@ -134,24 +142,45 @@ namespace EvCreating.Controllers
             return View(@event);
         }
 
+        // In de EventController voor soft delete
+
+        // GET: Events/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Event == null)
+            {
+                return NotFound();
+            }
+
+            var @event = await _context.Event
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return View(@event);
+        }
+
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Event == null)
-            {
-                return Problem("Entity set 'EvCreatingContext.Event' is null.");
-            }
             var @event = await _context.Event.FindAsync(id);
-            if (@event != null)
+
+            if (@event == null)
             {
-                _context.Event.Remove(@event);
+                return NotFound();
             }
 
+            @event.IsDeleted = true; // Markeren als verwijderd
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool EventExists(int id)
         {

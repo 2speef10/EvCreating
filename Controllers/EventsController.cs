@@ -17,6 +17,7 @@ namespace EvCreating.Controllers
         {
             _context = context;
         }
+
         public IActionResult BeoordeelEvenement()
         {
             var evenementen = _context.Event.Select(e => new SelectListItem { Value = e.ID.ToString(), Text = e.Naam }).ToList();
@@ -24,10 +25,9 @@ namespace EvCreating.Controllers
             return View();
         }
 
-
         public async Task<IActionResult> Index(int? selectedMonth)
         {
-            var events = _context.Event.AsQueryable();
+            var events = _context.Event.Where(e => !e.IsDeleted).AsQueryable();
 
             if (selectedMonth.HasValue && selectedMonth > 0 && selectedMonth <= 12)
             {
@@ -37,7 +37,6 @@ namespace EvCreating.Controllers
             return View(await events.ToListAsync());
         }
 
-        // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Event == null)
@@ -55,13 +54,11 @@ namespace EvCreating.Controllers
             return View(@event);
         }
 
-        // GET: Events/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Events/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Naam,Datum,Locatie,Beschrijving,Soort")] Event @event)
@@ -75,7 +72,6 @@ namespace EvCreating.Controllers
             return View(@event);
         }
 
-        // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Event == null)
@@ -91,7 +87,6 @@ namespace EvCreating.Controllers
             return View(@event);
         }
 
-        // POST: Events/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Naam,Datum,Locatie,Beschrijving,Soort")] Event @event)
@@ -124,7 +119,6 @@ namespace EvCreating.Controllers
             return View(@event);
         }
 
-        // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Event == null)
@@ -142,49 +136,26 @@ namespace EvCreating.Controllers
             return View(@event);
         }
 
-        // In de EventController voor soft delete
-
-        // GET: Events/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Event == null)
-            {
-                return NotFound();
-            }
-
-            var @event = await _context.Event
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return View(@event);
-        }
-
-        // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var @event = await _context.Event.FindAsync(id);
-
             if (@event == null)
             {
                 return NotFound();
             }
 
-            @event.IsDeleted = true; // Markeren als verwijderd
-            await _context.SaveChangesAsync();
+            // Markeren als verwijderd
+            @event.IsDeleted = true;
 
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-
         private bool EventExists(int id)
         {
-            return (_context.Event?.Any(e => e.ID == id)).GetValueOrDefault();
+            return _context.Event.Any(e => e.ID == id && !e.IsDeleted);
         }
     }
 }

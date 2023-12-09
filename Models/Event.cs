@@ -8,5 +8,6 @@
         public string Locatie { get; set; }
         public string Beschrijving { get; set; }
         public string Soort { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

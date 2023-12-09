@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using EvCreating.Models;
 
 namespace EvCreating.Data;
 
@@ -19,4 +20,12 @@ public class EvCreatingContext : IdentityDbContext<EvCreatingUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+    public DbSet<EvCreating.Models.Evenement> Evenement { get; set; } = default!;
+
+    public DbSet<Mening> Mening { get; set; } = default!;
+
+    public DbSet<EvCreating.Models.UserBeheer> UserBeheer { get; set; } = default!;
+
+    public DbSet<EvCreating.Models.Event> Event { get; set; } = default!;
 }

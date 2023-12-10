@@ -26,13 +26,22 @@ namespace EvCreating.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? selectedRating)
         {
-            var evCreatingContext = _context.EventEvaluation.Include(e => e.GeselecteerdEvenement);
-            return View(await evCreatingContext.ToListAsync());
+            var eventEvaluations = _context.EventEvaluation.Include(e => e.GeselecteerdEvenement);
+
+            if (selectedRating.HasValue)
+            {
+                eventEvaluations = _context.EventEvaluation
+                    .Where(e => e.Waardering == selectedRating)
+                    .Include(e => e.GeselecteerdEvenement);
+            }
+
+            return View(await eventEvaluations.ToListAsync());
         }
 
-        public async Task<IActionResult> Details(int? id)
+    
+    public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.EventEvaluation == null)
             {

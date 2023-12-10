@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EvCreating.Models
 {
@@ -22,6 +23,7 @@ namespace EvCreating.Models
         public string Inhoud { get; set; }
 
         [Display(Name = "Geselecteerd Evenement")]
+        [ForeignKey("Event")]
         public int GeselecteerdEvenementId { get; set; }
         public Event GeselecteerdEvenement { get; set; }
     }

@@ -31,6 +31,10 @@ public class EvCreatingContext : IdentityDbContext<EvCreatingUser>
     public DbSet<EvCreating.Models.EventComment> EventComment { get; set; } = default!;
 
     public DbSet<EvCreating.Models.EventEvaluation> EventEvaluation { get; set; } = default!;
+
+    public DbSet<FAQQuestion> FAQQuestion { get; set; } = default!;
+
+    public DbSet<FAQComment> FAQComment { get; set; } = default!;
     
 }
 public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<EvCreatingUser>

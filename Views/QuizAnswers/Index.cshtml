@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Quiz";
+}
+
+<h1>Quiz</h1>
+
+<form asp-action="CheckAnswers" method="post">
+    <div>
+        <h3>Vraag 1: Waar was het concert van PNL?</h3>
+        <input type="radio" name="UserAnswer1" value="Ninho"> Ninho<br>
+        <input type="radio" name="UserAnswer1" value="PLK"> PLK<br>
+        <input type="radio" name="UserAnswer1" value="Niemand"> Niemand<br>
+    </div>
+
+    <div>
+        <h3>Vraag 2: Wie heeft het panna-toernooi gewonnen?</h3>
+        <input type="radio" name="UserAnswer2" value="Mehdi Amri"> Mehdi Amri<br>
+        <input type="radio" name="UserAnswer2" value="Sean Garnier"> Sean Garnier<br>
+        <input type="radio" name="UserAnswer2" value="Leamsi"> Leamsi<br>
+    </div>
+
+    <div>
+        <h3>Vraag 3: Wie heeft de wedstrijd in Java Lesson gewonnen?</h3>
+        <input type="radio" name="UserAnswer3" value="Lucas"> Lucas<br>
+        <input type="radio" name="UserAnswer3" value="Aron"> Aron<br>
+        <input type="radio" name="UserAnswer3" value="Oussamma"> Oussamma<br>
+    </div>
+
+    <div>
+        <input type="submit" value="Antwoorden indienen">
+    </div>
+</form>

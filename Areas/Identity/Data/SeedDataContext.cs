@@ -50,11 +50,19 @@ namespace EvCreating.Data
                 if (!context.EventEvaluation.Any())
                 {
                     context.EventEvaluation.AddRange(
-                    new EventEvaluation { Naam = "Ilias", ReactieDatum = DateTime.Now, Waardering = 4, Inhoud = "Leuke Event", GeselecteerdEvenement = evenement2, GeselecteerdEvenementId = evenement2.ID },
-                    new EventEvaluation { Naam = "Kamil", ReactieDatum = DateTime.Now, Waardering = 2, Inhoud = "niet interesant", GeselecteerdEvenement = evenement,GeselecteerdEvenementId = evenement.ID }
+                    new EventEvaluation { Naam = "Ilias", ReactieDatum = DateTime.Now, Waardering = 4, Inhoud = "Leuke Event", EventNaam = evenement2.Naam, GeselecteerdEvenementId = evenement2.ID },
+                    new EventEvaluation { Naam = "Kamil", ReactieDatum = DateTime.Now, Waardering = 2, Inhoud = "niet interesant", EventNaam = evenement.Naam,GeselecteerdEvenementId = evenement.ID }
                                                                                                                                                             ) ;
 
                 }   
+                context.SaveChanges();
+
+                if (!context.Roles.Any()) {                     context.Roles.AddRange(
+                                       new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
+                                                          new IdentityRole { Name = "User", NormalizedName = "USER" }
+                                                                                                                                                  );
+                
+                               }
                 context.SaveChanges();
             }
         }

@@ -65,6 +65,8 @@ namespace EvCreating.Controllers
         {
             if (ModelState.IsValid)
             {
+                eventEvaluation.EventNaam = _context.Event.FirstOrDefault(e => e.ID == eventEvaluation.GeselecteerdEvenementId)?.Naam;
+
                 _context.Add(eventEvaluation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

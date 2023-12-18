@@ -4,6 +4,7 @@ using EvCreating.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvCreating.Migrations
 {
     [DbContext(typeof(EvCreatingContext))]
-    partial class EvCreatingContextModelSnapshot : ModelSnapshot
+    [Migration("20231218143318_EventNaam")]
+    partial class EventNaam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,6 +208,7 @@ namespace EvCreating.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("EventNaam")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GeselecteerdEvenementId")
@@ -225,8 +229,6 @@ namespace EvCreating.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("GeselecteerdEvenementId");
 
                     b.ToTable("EventEvaluation");
                 });
@@ -500,17 +502,6 @@ namespace EvCreating.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("EvCreating.Models.EventEvaluation", b =>
-                {
-                    b.HasOne("EvCreating.Models.Event", "GeselecteerdEvenement")
-                        .WithMany()
-                        .HasForeignKey("GeselecteerdEvenementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GeselecteerdEvenement");
                 });
 
             modelBuilder.Entity("FAQComment", b =>

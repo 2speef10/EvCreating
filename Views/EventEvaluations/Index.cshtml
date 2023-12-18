@@ -39,7 +39,7 @@
                 @Html.DisplayNameFor(model => model.Inhoud)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GeselecteerdEvenement)
+                @Html.DisplayNameFor(model => model.EventNaam)
             </th>
             <th></th>
         </tr>
@@ -61,7 +61,7 @@
                     @Html.DisplayFor(modelItem => item.Inhoud)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GeselecteerdEvenement.Naam)
+                    @Html.DisplayFor(modelItem => item.EventNaam)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a> |

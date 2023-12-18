@@ -25,6 +25,8 @@ namespace EvCreating.Models
         [Display(Name = "Geselecteerd Evenement")]
         [ForeignKey("Event")]
         public int GeselecteerdEvenementId { get; set; }
-        public Event GeselecteerdEvenement { get; set; }
+        [Display(Name = "Naam Evenement")]
+        public string? EventNaam { get; set; }
+        public Event? GeselecteerdEvenement { get; set; }
     }
 }

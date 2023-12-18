@@ -7,8 +7,9 @@ var connectionString = builder.Configuration.GetConnectionString("EvCreatingCont
 
 builder.Services.AddDbContext<EvCreatingContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<EvCreatingUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<EvCreatingContext>();
-
+builder.Services.AddDefaultIdentity<EvCreatingUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
+               .AddRoles<IdentityRole>()
+               .AddEntityFrameworkStores<EvCreatingContext>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

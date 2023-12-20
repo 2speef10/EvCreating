@@ -1,4 +1,6 @@
 ﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,28 +22,33 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@_localizer["Start"]</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">Evenements</a>
-
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">@_localizer["Evenements"]</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="FAQQuestions" asp-action="Index">FAQ</a>
-
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="EventEvaluations" asp-action="Index">Commentaar</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="EventEvaluations" asp-action="Index">@_localizer["Commentaar"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="QuiAnswers" asp-action="Index">Quiz</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="QuizAnswers" asp-action="Index">Quiz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Languages" asp-action="Index">@_localizer["Talen"]</a>
                         </li>
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <partial name="_LanguagePartial" />
+                }
             </div>
         </nav>
     </header>
@@ -50,7 +57,6 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - EvCreating - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

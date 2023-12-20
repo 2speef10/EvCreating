@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EvCreating.Areas.Identity.Data;
 using EvCreating.Data;
+using Microsoft.AspNetCore.Mvc.Razor;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("EvCreatingContextConnection") ?? throw new InvalidOperationException("Connection string 'EvCreatingContextConnection' not found.");
 
@@ -10,6 +11,10 @@ builder.Services.AddDbContext<EvCreatingContext>(options => options.UseSqlServer
 builder.Services.AddDefaultIdentity<EvCreatingUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
                .AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<EvCreatingContext>();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Translations");
+builder.Services.AddMvc()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -35,5 +40,11 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     SeedDataService.Initialize(services);
 }
+var supportedCultures = new[] { "en-US", "fr", "nl" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+app.UseRequestLocalization(localizationOptions);
+
 
 app.Run();

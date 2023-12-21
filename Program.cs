@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("EvCreatingCont
 
 builder.Services.AddDbContext<EvCreatingContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<EvCreatingUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<EvCreatingUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = false)
                .AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<EvCreatingContext>();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Translations");
@@ -37,8 +37,11 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 using (var scope = app.Services.CreateScope())
 {
+    
     var services = scope.ServiceProvider;
-    SeedDataService.Initialize(services);
+    var userManager = services.GetRequiredService<UserManager<EvCreatingUser>>();
+    await SeedDataService.Initialize(services,userManager);
+    
 }
 var supportedCultures = new[] { "en-US", "fr", "nl" };
 var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])

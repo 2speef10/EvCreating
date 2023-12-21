@@ -71,9 +71,14 @@
                     @Html.DisplayFor(modelItem => item.Soort)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    @if (User.IsInRole("SystemAdministrator"))
+                    {
+                   
+                    <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a> 
+
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> 
                     <a asp-action="Delete" asp-route-id="@item.ID">Verwijderen</a>
+                    }
                 </td>
             </tr>
         }

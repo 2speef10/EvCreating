@@ -10,8 +10,10 @@ namespace EvCreating.Data
 {
     public class SeedDataService
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static async Task Initialize(IServiceProvider serviceProvider, UserManager<EvCreatingUser>userManager)
+
         {
+
             using (var context = new EvCreatingContext(
                 serviceProvider.GetRequiredService<DbContextOptions<EvCreatingContext>>()))
             {
@@ -57,18 +59,70 @@ namespace EvCreating.Data
 
                 }
                 context.SaveChanges();
+                if (!context.Users.Any())
+                {
+                    EvCreatingUser user = new EvCreatingUser
+                    {
+                        Id = "User",
+                        UserName = "User",
+                        FirstName = "User",
+                        LastName = "User",
+                        Email = "User@user.com",
+                        PasswordHash = "User.123."
+
+                    };
+
+                    context.Users.Add(user);
+                    context.SaveChanges();
+
+                    EvCreatingUser admin = new EvCreatingUser
+                    {
+                        Id = "Admin",
+                        UserName = "Admin",
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Email = "ilias.filali23@gmail.com"
+                    };
+                    var result = await userManager.CreateAsync(admin, "Admin123.");
+
+
+
+                }
+
+                EvCreatingUser dummyUser = context.Users.FirstOrDefault(g => g.UserName == "User");
+                EvCreatingUser dummyAdmin = context.Users.FirstOrDefault(g => g.UserName == "Admin");
 
                 if (!context.Roles.Any())
                 {
                     context.Roles.AddRange(
-
-                         new IdentityRole { Name = "SystemAdministrator", Id = "SystemAdministrator", NormalizedName = "SYSTEMADMINISTRATOR" },
-                        new IdentityRole { Name = "User", Id = "User", NormalizedName = "USER" }
-                    );
-
-
+                        new IdentityRole
+                        {
+                            Id = "User",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new IdentityRole
+                        {
+                            Id = "SystemAdministrator",
+                            Name = "SystemAdministrator",
+                            NormalizedName = "SYSTEMADMINISTRATOR"
+                        });
+                    context.UserRoles.Add(
+                        new IdentityUserRole<string>
+                        {
+                            UserId = dummyUser.Id,
+                            RoleId = "User"
+                        });
+                    context.UserRoles.Add(
+                         new IdentityUserRole<string>
+                         {
+                             UserId = dummyAdmin.Id,
+                             RoleId = "SystemAdministrator"
+                         });
                     context.SaveChanges();
                 }
+                
+                
                 if (!context.Language.Any())
                 {
                     context.AddRange(

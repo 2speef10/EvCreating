@@ -27,6 +27,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                       
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">@_localizer["Evenements"]</a>
                         </li>
@@ -42,13 +44,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Languages" asp-action="Index">@_localizer["Talen"]</a>
                         </li>
+                        @if (User.IsInRole("SystemAdministrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">@_localizer["Gebruikersbeheer"]</a>
+                            </li>
+                        }
+                        }
+                     
+                        
+                        
                     </ul>
                 </div>
-                <partial name="_LoginPartial" />
-                @if (!User.Identity.IsAuthenticated)
-                {
+              
+                    <partial name="_LoginPartial" />
                     <partial name="_LanguagePartial" />
-                }
+                
             </div>
         </nav>
     </header>

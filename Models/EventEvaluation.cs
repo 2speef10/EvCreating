@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EvCreating.Areas.Identity.Data;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,5 +29,15 @@ namespace EvCreating.Models
         [Display(Name = "Naam Evenement")]
         public string? EventNaam { get; set; }
         public Event? GeselecteerdEvenement { get; set; }
+
+        [ForeignKey("EvCreatingUser")]
+        public string? EvCreatingUserId { get; set; }
+        [Display(Name = "Gebruiker")]
+        public EvCreatingUser? EvCreatingUser { get; set; }
+
+        public EventEvaluation()
+        {
+            EvCreatingUserId = Globals.GlobalsUser?.Id ?? "DefaultUserId";
+        }
     }
 }

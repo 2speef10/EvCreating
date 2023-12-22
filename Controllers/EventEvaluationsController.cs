@@ -7,17 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EvCreating.Data;
 using EvCreating.Models;
+using EvCreating.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace EvCreating.Controllers
 {
     public class EventEvaluationsController : Controller
     {
+        private readonly UserManager<EvCreatingUser> _userManager;
         private readonly EvCreatingContext _context;
 
-        public EventEvaluationsController(EvCreatingContext context)
+        public EventEvaluationsController(EvCreatingContext context, UserManager<EvCreatingUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
 
         public IActionResult Create()
         {
@@ -28,20 +33,39 @@ namespace EvCreating.Controllers
 
         public async Task<IActionResult> Index(int? selectedRating)
         {
-            var eventEvaluations = _context.EventEvaluation.Include(e => e.GeselecteerdEvenement);
+            var eventEvaluations = _context.EventEvaluation.Include(e => e.GeselecteerdEvenement).Include(e => e.EvCreatingUser);
+            
 
             if (selectedRating.HasValue)
             {
                 eventEvaluations = _context.EventEvaluation
                     .Where(e => e.Waardering == selectedRating)
-                    .Include(e => e.GeselecteerdEvenement);
+                    .Include(e => e.GeselecteerdEvenement).Include(e => e.EvCreatingUser);
+            }
+
+            // Loop door elke EventEvaluation en vul EvCreatingUser in
+            foreach (var evaluation in await eventEvaluations.ToListAsync())
+            {
+                // Vervang 'GetUserById' met de juiste methode om de gebruiker op te halen op basis van EvCreatingUserId
+                var user = await GetUserById(evaluation.EvCreatingUserId);
+
+                // Voeg de gebruikersnaam toe aan EvCreatingUser als de gebruiker is gevonden
+                if (user != null)
+                {
+                    evaluation.EvCreatingUser = user; // Of de juiste eigenschap die de gebruikersnaam bevat
+                }
             }
 
             return View(await eventEvaluations.ToListAsync());
         }
+        // Methode om de gebruiker op te halen op basis van EvCreatingUserId
+        private async Task<EvCreatingUser> GetUserById(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
 
-    
-    public async Task<IActionResult> Details(int? id)
+
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.EventEvaluation == null)
             {
@@ -66,6 +90,10 @@ namespace EvCreating.Controllers
             if (ModelState.IsValid)
             {
                 eventEvaluation.EventNaam = _context.Event.FirstOrDefault(e => e.ID == eventEvaluation.GeselecteerdEvenementId)?.Naam;
+
+                // Set EvCreatingUserId to the current logged-in user's ID
+                var currentUser = await _userManager.GetUserAsync(User);
+                eventEvaluation.EvCreatingUserId = currentUser.Id;
 
                 _context.Add(eventEvaluation);
                 await _context.SaveChangesAsync();

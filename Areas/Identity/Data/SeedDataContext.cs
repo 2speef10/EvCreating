@@ -50,15 +50,7 @@ namespace EvCreating.Data
 
                 }
                 context.SaveChanges();
-                if (!context.EventEvaluation.Any())
-                {
-                    context.EventEvaluation.AddRange(
-                    new EventEvaluation { Naam = "Ilias", ReactieDatum = DateTime.Now, Waardering = 4, Inhoud = "Leuke Event", EventNaam = evenement2.Naam, GeselecteerdEvenementId = evenement2.ID },
-                    new EventEvaluation { Naam = "Kamil", ReactieDatum = DateTime.Now, Waardering = 2, Inhoud = "niet interesant", EventNaam = evenement.Naam, GeselecteerdEvenementId = evenement.ID }
-                                                                                                                                                            );
-
-                }
-                context.SaveChanges();
+                
                 if (!context.Users.Any())
                 {
                     EvCreatingUser user = new EvCreatingUser
@@ -136,9 +128,18 @@ namespace EvCreating.Data
                 }
 
                 Language.GetLanguages(context);
+                if (!context.EventEvaluation.Any())
+                {
+                    context.EventEvaluation.AddRange(
+                    new EventEvaluation { Naam = "Ilias", ReactieDatum = DateTime.Now, Waardering = 4, Inhoud = "Leuke Event", EventNaam = evenement2.Naam, GeselecteerdEvenementId = evenement2.ID,EvCreatingUserId=dummyAdmin.Id,EvCreatingUser = dummyAdmin},
+                    new EventEvaluation { Naam = "Kamil", ReactieDatum = DateTime.Now, Waardering = 2, Inhoud = "niet interesant", EventNaam = evenement.Naam, GeselecteerdEvenementId = evenement.ID, EvCreatingUser=dummyUser, EvCreatingUserId = dummyUser.Id }
+                                                                                                                                                            );
 
+                }
+                context.SaveChanges();
 
             }
+
         }
         }
     }

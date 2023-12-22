@@ -4,6 +4,7 @@ using EvCreating.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvCreating.Migrations
 {
     [DbContext(typeof(EvCreatingContext))]
-    partial class EvCreatingContextModelSnapshot : ModelSnapshot
+    [Migration("20231221161712_GlobalsEvaluation")]
+    partial class GlobalsEvaluation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,7 +129,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Evenement", (string)null);
+                    b.ToTable("Evenement");
                 });
 
             modelBuilder.Entity("EvCreating.Models.Event", b =>
@@ -161,7 +164,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Event", (string)null);
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("EvCreating.Models.EventComment", b =>
@@ -193,7 +196,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("EventID");
 
-                    b.ToTable("EventComment", (string)null);
+                    b.ToTable("EventComment");
                 });
 
             modelBuilder.Entity("EvCreating.Models.EventEvaluation", b =>
@@ -234,7 +237,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("GeselecteerdEvenementId");
 
-                    b.ToTable("EventEvaluation", (string)null);
+                    b.ToTable("EventEvaluation");
                 });
 
             modelBuilder.Entity("EvCreating.Models.Language", b =>
@@ -255,7 +258,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language", (string)null);
+                    b.ToTable("Language");
                 });
 
             modelBuilder.Entity("EvCreating.Models.QuizAnswer", b =>
@@ -272,7 +275,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("QuizAnswer", (string)null);
+                    b.ToTable("QuizAnswer");
                 });
 
             modelBuilder.Entity("EvCreating.Models.UserBeheer", b =>
@@ -299,7 +302,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("UserBeheer", (string)null);
+                    b.ToTable("UserBeheer");
                 });
 
             modelBuilder.Entity("FAQComment", b =>
@@ -321,7 +324,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("FAQQuestionId");
 
-                    b.ToTable("FAQComment", (string)null);
+                    b.ToTable("FAQComment");
                 });
 
             modelBuilder.Entity("FAQQuestion", b =>
@@ -342,7 +345,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FAQQuestion", (string)null);
+                    b.ToTable("FAQQuestion");
                 });
 
             modelBuilder.Entity("Mening", b =>
@@ -378,7 +381,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("EvenementId");
 
-                    b.ToTable("Mening", (string)null);
+                    b.ToTable("Mening");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

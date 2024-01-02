@@ -33,9 +33,11 @@ namespace EvCreating.Models
         [ForeignKey("EvCreatingUser")]
         public string? EvCreatingUserId { get; set; }
         [Display(Name = "Gebruiker")]
+        // ? evCreatingUser is nullable ,de app accepteert null
         public EvCreatingUser? EvCreatingUser { get; set; }
 
         public EventEvaluation()
+            //?? si c'est null alors on prend la valeur à droite
         {
             EvCreatingUserId = Globals.GlobalsUser?.Id ?? "DefaultUserId";
         }

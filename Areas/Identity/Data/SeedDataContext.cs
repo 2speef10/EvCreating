@@ -68,14 +68,17 @@ namespace EvCreating.Data
                     context.SaveChanges();
 
                     EvCreatingUser admin = new EvCreatingUser
+
                     {
                         Id = "Admin",
                         UserName = "Admin",
                         FirstName = "Admin",
                         LastName = "Admin",
                         Email = "ilias.filali23@gmail.com"
+
                     };
                     var result = await userManager.CreateAsync(admin, "Admin123.");
+
 
 
 
@@ -83,6 +86,8 @@ namespace EvCreating.Data
 
                 EvCreatingUser dummyUser = context.Users.FirstOrDefault(g => g.UserName == "User");
                 EvCreatingUser dummyAdmin = context.Users.FirstOrDefault(g => g.UserName == "Admin");
+                AddParameters(context, dummyAdmin);
+                Globals.GlobalsUser = dummyUser;
 
                 if (!context.Roles.Any())
                 {
@@ -98,6 +103,7 @@ namespace EvCreating.Data
                             Id = "SystemAdministrator",
                             Name = "SystemAdministrator",
                             NormalizedName = "SYSTEMADMINISTRATOR"
+
                         });
                     context.UserRoles.Add(
                         new IdentityUserRole<string>
@@ -138,6 +144,30 @@ namespace EvCreating.Data
                 }
                 context.SaveChanges();
                 
+            }
+            static void AddParameters(EvCreatingContext context, EvCreatingUser user)
+            {
+                if (!context.Parameter.Any())
+                {
+                    context.Parameter.AddRange(
+                        new Parameter { Name = "Version", Value = "0.1.0", Description = "Huidige versie van de parameterlijst", Destination = "System", UserId = user.Id },
+                        new Parameter { Name = "Mail.Server", Value = "ergens.evcreating.be", Description = "Naam van de gebruikte pop-server", Destination = "Mail", UserId = user.Id },
+                        new Parameter { Name = "Mail.Port", Value = "25", Description = "Poort van de smtp-server", Destination = "Mail", UserId = user.Id },
+                        new Parameter { Name = "Mail.Account", Value = "SmtpServer", Description = "Acount-naam van de smtp-server", Destination = "Mail", UserId = user.Id },
+                        new Parameter { Name = "Mail.Password", Value = "xxxyyy!2315", Description = "Wachtwoord van de smtp-server", Destination = "Mail", UserId = user.Id },
+                        new Parameter { Name = "Mail.Security", Value = "true", Description = "Is SSL or TLS encryption used (true or false)", Destination = "Mail", UserId = user.Id },
+                        new Parameter { Name = "Mail.SenderEmail", Value = "administrator.evcreating.be", Description = "E-mail van de smtp-verzender", Destination = "Mail", UserId = user.Id },
+                        new Parameter { Name = "Mail.SenderName", Value = "Administrator", Description = "Naam van de smtp-verzender", Destination = "Mail", UserId = user.Id }
+                    );
+                    context.SaveChanges();
+                }
+
+                Globals.Parameters = new Dictionary<string, Parameter>();
+                foreach (Parameter parameter in context.Parameter)
+                {
+                    Globals.Parameters[parameter.Name] = parameter;
+                }
+                Globals.ConfigureMail();
             }
 
         }

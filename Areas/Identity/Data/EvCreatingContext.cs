@@ -39,6 +39,8 @@ public class EvCreatingContext : IdentityDbContext<EvCreatingUser>
     public DbSet<EvCreating.Models.QuizAnswer> QuizAnswer { get; set; } = default!;
 
     public DbSet<EvCreating.Models.Language> Language { get; set; } = default!;
+
+    public DbSet<EvCreating.Models.Parameter> Parameter { get; set; } = default!;
     
 }
 public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<EvCreatingUser>

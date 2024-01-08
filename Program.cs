@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using EvCreating.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using NETCore.MailKit.Infrastructure.Internal;
+using Microsoft.OpenApi.Models;
 
 namespace EvCreating
 {
@@ -15,7 +16,16 @@ namespace EvCreating
         {
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("EvCreatingContextConnection") ?? throw new InvalidOperationException("Connection string 'EvCreatingContextConnection' not found.");
-
+            // Add services for restfull api
+            builder.Services.AddControllers();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "EvCreating",
+                    Version = "v1"
+                });
+            });
             builder.Services.AddDbContext<EvCreatingContext>(options => options.UseSqlServer(connectionString));
 
             builder.Services.AddDefaultIdentity<EvCreatingUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = false)
@@ -46,6 +56,7 @@ namespace EvCreating
 
 
             var app = builder.Build();
+
             Globals.App = app;
 
             // Configure the HTTP request pipeline.
@@ -53,12 +64,23 @@ namespace EvCreating
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
+            
+            //gebruik van api restfull tijdens ontwikkeling
+            else 
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "EvCreating v1");
+                });
+            }
 
             app.UseRouting();
 
             app.UseAuthorization();
             app.MapRazorPages();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.MapControllerRoute(
                 name: "default",

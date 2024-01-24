@@ -7,16 +7,19 @@ using EvCreating.Data;
 using EvCreating.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json; // Voeg deze namespace toe voor JSON-serialisatie
+using EvCreating.Middleware;
 
 namespace EvCreating.Controllers
 {
     public class EventsController : Controller
     {
+
         private readonly EvCreatingContext _context;
 
         public EventsController(EvCreatingContext context)
         {
             _context = context;
+
         }
 
         public IActionResult BeoordeelEvenement()
@@ -64,13 +67,15 @@ namespace EvCreating.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Event
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var @event = await _context.Event.FirstOrDefaultAsync(m => m.ID == id);
 
             if (@event == null)
             {
                 return NotFound();
             }
+
+            // Roep LogEventVisit aan om het bezoek aan het evenement te loggen
+            //LogEventVisit(HttpContext, @event.ID.ToString());
 
             // Haal gegevens op uit HttpContext.Items voor een specifiek evenement
             var eventVisitsKey = $"EventVisits_{@event.ID}";
@@ -89,11 +94,6 @@ namespace EvCreating.Controllers
 
             return View(@event);
         }
-
-
-
-
-
 
         public IActionResult Create()
         {

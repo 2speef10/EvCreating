@@ -5,13 +5,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
+namespace EvCreating.Middleware;
 public class EventAnalyticsMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public EventAnalyticsMiddleware(RequestDelegate next)
+    public EventAnalyticsMiddleware(RequestDelegate next, IHttpContextAccessor httpContextAccessor)
     {
         _next = next;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task Invoke(HttpContext context)
@@ -20,20 +23,17 @@ public class EventAnalyticsMiddleware
         stopwatch.Start();
 
         var eventId = context.Request.Query["eventId"];
-        LogEventVisit(context, eventId);
+        LogEventVisit(_httpContextAccessor.HttpContext, eventId);
 
         await _next(context);
 
         stopwatch.Stop();
         var elapsedTime = stopwatch.ElapsedMilliseconds;
 
-        // LogVisitDuration(context, eventId, elapsedTime); // Verwijder deze regel
-
-        // Roep LogVisitCount aan om de Visit Count te loggen
         LogVisitCount(context, eventId);
     }
 
-    private void LogEventVisit(HttpContext context, string eventId)
+    public void LogEventVisit(HttpContext context, string eventId)
     {
         Console.WriteLine($"Gebruiker bezocht evenement met ID {eventId}");
 
@@ -51,7 +51,7 @@ public class EventAnalyticsMiddleware
         }
     }
 
-    private void LogVisitCount(HttpContext context, string eventId)
+    public void LogVisitCount(HttpContext context, string eventId)
     {
         Console.WriteLine($"Gebruiker bezocht evenement met ID {eventId}");
 
@@ -67,5 +67,4 @@ public class EventAnalyticsMiddleware
         // Zorg ervoor dat de visitCount als string wordt opgeslagen
         context.Items[$"VisitCountString_{eventId}"] = visitCount.ToString();
     }
-
 }

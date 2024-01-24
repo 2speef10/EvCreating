@@ -7,6 +7,7 @@ using EvCreating.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using NETCore.MailKit.Infrastructure.Internal;
 using Microsoft.OpenApi.Models;
+using EvCreating.Middleware;
 
 namespace EvCreating
 {
@@ -48,12 +49,14 @@ namespace EvCreating
                 options.SenderName = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
                 options.Security = true;  // true zet ssl of tls aan
             });
-
+            builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
             Globals.App = app;
-
+            // Registreer de middleware hier
+            app.UseMiddleware<EventAnalyticsMiddleware>();
             // Configuratie van de HTTP-verzoekpijplijn.
             // Configure the HTTP request pipeline.
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -69,8 +72,7 @@ namespace EvCreating
             app.UseRouting();
             app.UseAuthorization();
             app.MapRazorPages();
-            app.UseMiddleware<EventAnalyticsMiddleware>();
-
+  
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

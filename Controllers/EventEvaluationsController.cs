@@ -87,21 +87,42 @@ namespace EvCreating.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Naam,ReactieDatum,Waardering,Inhoud,GeselecteerdEvenementId")] EventEvaluation eventEvaluation)
         {
-            if (ModelState.IsValid)
+            try
             {
-                eventEvaluation.EventNaam = _context.Event.FirstOrDefault(e => e.ID == eventEvaluation.GeselecteerdEvenementId)?.Naam;
+                if (ModelState.IsValid)
+                {
+                    eventEvaluation.EventNaam = _context.Event.FirstOrDefault(e => e.ID == eventEvaluation.GeselecteerdEvenementId)?.Naam;
 
-                // Set EvCreatingUserId to the current logged-in user's ID
-                var currentUser = await _userManager.GetUserAsync(User);
-                eventEvaluation.EvCreatingUserId = currentUser.Id;
+                    // Set EvCreatingUserId to the current logged-in user's ID
+                    var currentUser = await _userManager.GetUserAsync(User);
+                    eventEvaluation.EvCreatingUserId = currentUser.Id;
 
-                _context.Add(eventEvaluation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(eventEvaluation);
+                    await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Evaluatie succesvol toegevoegd.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var activeEvents = _context.Event.Where(e => !e.IsDeleted).ToList();
+                ViewData["GeselecteerdEvenementen"] = new SelectList(activeEvents, "ID", "Naam");
+                return View(eventEvaluation);
             }
-            ViewData["GeselecteerdEvenementen"] = new SelectList(_context.Event, "ID", "Naam");
-            return View(eventEvaluation);
+            catch (Exception ex)
+            {
+                // Log the error, add to an error log, or send to a monitoring service
+                Console.Error.WriteLine($"Fout bij het toevoegen van de evaluatie: {ex.Message}");
+
+                // Provide an error message to the user
+                ModelState.AddModelError(string.Empty, "Er is een fout opgetreden bij het toevoegen van de evaluatie.");
+
+                var activeEvents = _context.Event.Where(e => !e.IsDeleted).ToList();
+                ViewData["GeselecteerdEvenementen"] = new SelectList(activeEvents, "ID", "Naam");
+                return View(eventEvaluation);
+            }
         }
+
+
 
         public async Task<IActionResult> Edit(int? id)
         {

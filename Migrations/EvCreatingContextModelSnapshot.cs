@@ -126,7 +126,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Evenement");
+                    b.ToTable("Evenement", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.Event", b =>
@@ -161,7 +161,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Event");
+                    b.ToTable("Event", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.EventComment", b =>
@@ -193,7 +193,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("EventID");
 
-                    b.ToTable("EventComment");
+                    b.ToTable("EventComment", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.EventEvaluation", b =>
@@ -233,7 +233,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("GeselecteerdEvenementId");
 
-                    b.ToTable("EventEvaluation");
+                    b.ToTable("EventEvaluation", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.Language", b =>
@@ -254,7 +254,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Language", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.Parameter", b =>
@@ -286,7 +286,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("Parameter");
+                    b.ToTable("Parameter", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.QuizAnswer", b =>
@@ -303,7 +303,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("QuizAnswer");
+                    b.ToTable("QuizAnswer", (string)null);
                 });
 
             modelBuilder.Entity("EvCreating.Models.UserBeheer", b =>
@@ -330,7 +330,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("UserBeheer");
+                    b.ToTable("UserBeheer", (string)null);
                 });
 
             modelBuilder.Entity("FAQComment", b =>
@@ -352,7 +352,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("FAQQuestionId");
 
-                    b.ToTable("FAQComment");
+                    b.ToTable("FAQComment", (string)null);
                 });
 
             modelBuilder.Entity("FAQQuestion", b =>
@@ -373,7 +373,7 @@ namespace EvCreating.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FAQQuestion");
+                    b.ToTable("FAQQuestion", (string)null);
                 });
 
             modelBuilder.Entity("Mening", b =>
@@ -409,7 +409,7 @@ namespace EvCreating.Migrations
 
                     b.HasIndex("EvenementId");
 
-                    b.ToTable("Mening");
+                    b.ToTable("Mening", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -5,6 +5,12 @@
 }
 
 <h1>Index</h1>
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
 
 <form asp-action="Index" method="get">
     <label for="selectedMonth">Selecteer een maand:</label>
@@ -17,7 +23,6 @@
         <option value="5">Mei</option>
         <option value="6">Juni</option>
         <option value="7">Juli</option>
-
         <option value="8">Augustus</option>
         <option value="9">September</option>
         <option value="10">Oktober</option>
@@ -71,16 +76,44 @@
                     @Html.DisplayFor(modelItem => item.Soort)
                 </td>
                 <td>
+                    <a href="@Url.Action("Details", new { id = item.ID, eventId = item.ID })">Details</a>
                     @if (User.IsInRole("SystemAdministrator"))
                     {
-                   
-                    <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a> 
-
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> 
-                    <a asp-action="Delete" asp-route-id="@item.ID">Verwijderen</a>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Verwijderen</a>
                     }
                 </td>
+
+
             </tr>
         }
     </tbody>
 </table>
+
+<h2>Event Analytics</h2>
+
+@foreach (var item in Model)
+{
+    <h3>Analytics voor evenement: @item.Naam</h3>
+
+    var eventId = item.ID.ToString();
+
+    if (ViewBag.EventVisits != null && ViewBag.EventVisits.ContainsKey(eventId))
+    {
+        <h4>Event Visits:</h4>
+        <ul>
+            @foreach (var visit in ViewBag.EventVisits[eventId])
+            {
+                <li>@visit</li>
+            }
+        </ul>
+    }
+
+    var visitCountKey = $"VisitCount_{eventId}";
+    if (ViewBag.VisitCount != null)
+    {
+        <h4>Visit Count:</h4>
+        <p>@ViewBag.VisitCount keer bezocht</p>
+    }
+}
+

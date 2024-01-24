@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EvCreating.Data;
 using EvCreating.Models;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 
 namespace EvCreating.Controllers
 {
+    [Authorize(Roles = "SystemAdministrator")]
     public class LanguagesController : Controller
     {
         private readonly EvCreatingContext _context;
@@ -21,15 +22,14 @@ namespace EvCreating.Controllers
             _context = context;
         }
 
+
         // GET: Languages
         public async Task<IActionResult> Index()
         {
             return _context.Language != null ?
                         View(await _context.Language.ToListAsync()) :
-                        Problem("Entity set 'MyDBcontext.Languages'  is null.");
+                        Problem("Entity set 'MyDbContext.Language'  is null.");
         }
-
-        // GET: Languages/Details/5
 
 
         // GET: Languages/Create
@@ -107,11 +107,12 @@ namespace EvCreating.Controllers
 
         // GET: Languages/Delete/5
 
-
         private bool LanguageExists(string id)
         {
             return (_context.Language?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
         [AllowAnonymous]
         public IActionResult ChangeLanguage(string id, string returnUrl)
         {
@@ -124,12 +125,12 @@ namespace EvCreating.Controllers
             {
                 culture = id + "-BE";
             }
+
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }// hoe lang gaan we de cookie gebruiken
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
                 );
-
             return LocalRedirect(returnUrl);
         }
     }

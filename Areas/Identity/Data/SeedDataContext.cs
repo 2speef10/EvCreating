@@ -60,7 +60,7 @@ namespace EvCreating.Data
                         FirstName = "User",
                         LastName = "User",
                         Email = "User@user.com",
-                        PasswordHash = "User.123."
+                        PasswordHash = "User123."
 
                     };
 
@@ -119,21 +119,24 @@ namespace EvCreating.Data
                          });
                     context.SaveChanges();
                 }
-                
-                
+
+
                 if (!context.Language.Any())
                 {
                     context.AddRange(
-                        new Language { Id = "- ", Name = "-", IsSystemLanguage = false, IsAvailable = DateTime.MaxValue },
-                        new Language { Id = "en", Name = "English", IsSystemLanguage = true },
+                        new Language { Id = "-", Name = "-", IsSystemLanguage = false, IsAvailable = DateTime.MaxValue },
                         new Language { Id = "nl", Name = "Nederlands", IsSystemLanguage = true },
-                        new Language { Id = "fr", Name = "français", IsSystemLanguage = true },
-                        new Language { Id = "de", Name = "Deutsch", IsSystemLanguage = true }
+                        new Language { Id = "en", Name = "English", IsSystemLanguage = true },
+                        new Language { Id = "fr", Name = "Français", IsSystemLanguage = true }
+                        
                         );
                     context.SaveChanges();
                 }
 
                 Language.GetLanguages(context);
+
+
+                
                 if (!context.EventEvaluation.Any())
                 {
                     context.EventEvaluation.AddRange(

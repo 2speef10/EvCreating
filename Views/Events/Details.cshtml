@@ -46,3 +46,22 @@
     <a asp-action="Edit" asp-route-id="@Model?.ID">Bewerken</a> |
     <a asp-action="Index">Terug naar lijst</a>
 </div>
+
+<h2>Event Analytics</h2>
+
+@if (ViewBag.EventVisits != null)
+{
+    <h3>Event Visits:</h3>
+    <ul>
+        @foreach (var visit in ViewBag.EventVisits)
+        {
+            <li>@visit</li>
+        }
+    </ul>
+}
+
+<h3>Visit Count:</h3>
+<p>@ViewBag.VisitCount keer bezocht</p>
+
+
+

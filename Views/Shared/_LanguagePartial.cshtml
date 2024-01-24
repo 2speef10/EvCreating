@@ -3,7 +3,7 @@
 
 @{
     // ophalen taal van de gebruiker
-    string languageId = "nl";
+    string languageId = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name;
     string cookieCulture = Context.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
     if (cookieCulture != null)
     {

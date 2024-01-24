@@ -27,23 +27,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                       
-                        
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">@_localizer["Evenements"]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="FAQQuestions" asp-action="Index">FAQ</a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="EventEvaluations" asp-action="Index">@_localizer["Commentaar"]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="QuizAnswers" asp-action="Index">Quiz</a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Languages" asp-action="Index">@_localizer["Talen"]</a>
                         </li>
+                       
                         @if (User.IsInRole("SystemAdministrator"))
                         {
                             <li class="nav-item">
@@ -53,16 +50,11 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Parameters" asp-action="Index">@_localizer["Parameters"]</a>
                             </li>
                         }
-                        
-                     
-                        
-                        
                     </ul>
-                </div>
-              
+
                     <partial name="_LoginPartial" />
                     <partial name="_LanguagePartial" />
-                
+                </div>
             </div>
         </nav>
     </header>

@@ -1,51 +1,53 @@
 ﻿@model EvCreating.Models.Event
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Creëren";
 }
 
-<h1>Creëren</h1>
+<h1>@Localizer["Create"]</h1>
 
-<h4>Evenement</h4>
+<h4>@Localizer["Event"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Naam" class="control-label"></label>
+                <label asp-for="Naam" class="control-label">@Localizer["Name"]</label>
                 <input asp-for="Naam" class="form-control" />
                 <span asp-validation-for="Naam" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Datum" class="control-label"></label>
+                <label asp-for="Datum" class="control-label">@Localizer["Date"]</label>
                 <input asp-for="Datum" class="form-control" />
                 <span asp-validation-for="Datum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Locatie" class="control-label"></label>
+                <label asp-for="Locatie" class="control-label">@Localizer["Location"]</label>
                 <input asp-for="Locatie" class="form-control" />
                 <span asp-validation-for="Locatie" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Beschrijving" class="control-label"></label>
+                <label asp-for="Beschrijving" class="control-label">@Localizer["Description"]</label>
                 <input asp-for="Beschrijving" class="form-control" />
                 <span asp-validation-for="Beschrijving" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Soort" class="control-label"></label>
+                <label asp-for="Soort" class="control-label">@Localizer["Category"]</label>
                 <input asp-for="Soort" class="form-control" />
                 <span asp-validation-for="Soort" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Creëren" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["Create"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Terug naar lijst</a>
+    <a asp-action="Index">@Localizer["BackToList"]</a>
 </div>
 
 @section Scripts {

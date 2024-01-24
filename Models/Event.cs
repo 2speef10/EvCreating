@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EvCreating.Models
 {
@@ -11,7 +12,8 @@ namespace EvCreating.Models
         public string Beschrijving { get; set; }
         public string Soort { get; set; }
         public bool IsDeleted { get; set; }
-        
 
+        // Nieuwe eigenschap toevoegen om het aantal bezoeken bij te houden
+        //public int VisitCount { get; set; }
     }
 }

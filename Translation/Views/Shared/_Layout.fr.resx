@@ -123,6 +123,12 @@
   <data name="Evenements" xml:space="preserve">
     <value>Evenement</value>
   </data>
+  <data name="Gebruikersbeheer" xml:space="preserve">
+    <value>Gestion des utilisateurs</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Départ</value>
   </data>

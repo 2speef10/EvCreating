@@ -1,7 +1,16 @@
 ﻿@model IEnumerable<EvCreating.Models.EventEvaluation>
 
+
 @{
     ViewData["Title"] = "Index";
+}
+@if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+    TempData.Clear();
+
 }
 
 <h1>Index</h1>

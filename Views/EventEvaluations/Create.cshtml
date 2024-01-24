@@ -1,12 +1,13 @@
 ﻿@model EvCreating.Models.EventEvaluation
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 @{
-    ViewData["Title"] = "Aanmaken";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Aanmaken</h1>
+<h1>@_localizer["Create"]</h1>
 
-<h4>Event Evaluatie</h4>
+<h4>@_localizer["Event Evaluation"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,18 +15,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Naam" class="control-label"></label>
+                <label asp-for="Naam" class="control-label">@_localizer["Naam"]</label>
                 <input asp-for="Naam" class="form-control" />
                 <span asp-validation-for="Naam" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReactieDatum" class="control-label"></label>
+                <label asp-for="ReactieDatum" class="control-label">@_localizer["Reactie Datum"]</label>
                 <input asp-for="ReactieDatum" class="form-control" />
                 <span asp-validation-for="ReactieDatum" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Waardering">Waardering:</label>
+                <label asp-for="Waardering" class="control-label">@_localizer["Waardering"]:</label>
                 <select asp-for="Waardering" class="form-control">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -37,27 +38,27 @@
                 <span asp-validation-for="Waardering" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Inhoud" class="control-label"></label>
+                <label asp-for="Inhoud" class="control-label">@_localizer["Inhoud"]</label>
                 <input asp-for="Inhoud" class="form-control" />
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GeselecteerdEvenementId" class="control-label"></label>
+                <label asp-for="GeselecteerdEvenementId" class="control-label">@_localizer["Geselecteerd Evenement"]</label>
                 <select asp-for="GeselecteerdEvenementId" asp-items="@ViewBag.GeselecteerdEvenementen" class="form-control">
-                    <option value="">Selecteer een evenement</option>
+                    <option value="">@_localizer["Naam event"]</option>
                 </select>
                 <span asp-validation-for="GeselecteerdEvenementId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Aanmaken" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Terug naar de lijst</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -121,7 +121,13 @@
     <value>Message</value>
   </data>
   <data name="Evenements" xml:space="preserve">
-    <value>Evenet</value>
+    <value>Event</value>
+  </data>
+  <data name="Gebruikersbeheer" xml:space="preserve">
+    <value>User managment</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Home</value>

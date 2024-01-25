@@ -10,22 +10,27 @@ namespace EvCreating.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Naam is verplicht")]
+        [Display(Name = "Naam")]
         public string Naam { get; set; }
 
+        [Display(Name = "Reactie datum")]
         [Required(ErrorMessage = "Datum van de reactie is verplicht")]
         [DataType(DataType.Date)]
         public DateTime ReactieDatum { get; set; }
 
+        [Display(Name = "Waardering")]
         [Required(ErrorMessage = "Waardering is verplicht")]
         [Range(1, 5, ErrorMessage = "Waardering moet tussen 1 en 5 liggen")]
         public int Waardering { get; set; }
 
+        [Display(Name = "Inhoud")]
         [Required(ErrorMessage = "Inhoud is verplicht")]
         public string Inhoud { get; set; }
 
         [Display(Name = "Geselecteerd Evenement")]
         [ForeignKey("Event")]
         public int GeselecteerdEvenementId { get; set; }
+
         [Display(Name = "Naam Evenement")]
         public string? EventNaam { get; set; }
         public Event? GeselecteerdEvenement { get; set; }

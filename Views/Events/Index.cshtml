@@ -90,30 +90,5 @@
     </tbody>
 </table>
 
-<h2>Event Analytics</h2>
 
-@foreach (var item in Model)
-{
-    <h3>Analytics voor evenement: @item.Naam</h3>
-
-    var eventId = item.ID.ToString();
-
-    if (ViewBag.EventVisits != null && ViewBag.EventVisits.ContainsKey(eventId))
-    {
-        <h4>Event Visits:</h4>
-        <ul>
-            @foreach (var visit in ViewBag.EventVisits[eventId])
-            {
-                <li>@visit</li>
-            }
-        </ul>
-    }
-
-    var visitCountKey = $"VisitCount_{eventId}";
-    if (ViewBag.VisitCount != null)
-    {
-        <h4>Visit Count:</h4>
-        <p>@ViewBag.VisitCount keer bezocht</p>
-    }
-}
 

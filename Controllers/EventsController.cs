@@ -74,8 +74,11 @@ namespace EvCreating.Controllers
                 return NotFound();
             }
 
+            // Create an instance of EventAnalyticsMiddleware
+            var eventAnalyticsMiddleware = new EventAnalyticsMiddleware(null, new HttpContextAccessor());
+
             // Roep LogEventVisit aan om het bezoek aan het evenement te loggen
-            //LogEventVisit(HttpContext, @event.ID.ToString());
+            eventAnalyticsMiddleware.LogEventVisit(HttpContext, @event.ID.ToString());
 
             // Haal gegevens op uit HttpContext.Items voor een specifiek evenement
             var eventVisitsKey = $"EventVisits_{@event.ID}";
@@ -94,6 +97,8 @@ namespace EvCreating.Controllers
 
             return View(@event);
         }
+
+
 
         public IActionResult Create()
         {

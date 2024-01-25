@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<EvCreating.Models.EventEvaluation>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 
 @{
     ViewData["Title"] = "Index";
@@ -16,19 +17,19 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Nieuw maken</a>
+    <a asp-action="Create">@_localizer["Nieuwe maken"]</a>
 </p>
 <form asp-action="Index" method="get">
-    <label for="selectedRating">Selecteer een waardering:</label>
+    <label for="selectedRating">@_localizer["Selecteer waardering:"]</label>
     <select id="selectedRating" name="selectedRating">
-        <option value="">Kies een waardering</option>
+        <option value="">@_localizer["Kies een waardering"]</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
     </select>
-    <input type="submit" value="Filteren" />
+    <input type="submit" value=@_localizer["Filteren"] />
 </form>
 
 
@@ -79,9 +80,13 @@
                     @Html.DisplayFor(modelItem => item.EvCreatingUser.UserName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Bewerken</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Verwijderen</a>
+
+                    <a asp-action="Details" asp-route-id="@item.ID">@_localizer["Details"]</a> |
+                    @if (User.IsInRole("SystemAdministrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">@_localizer["Bewerken"]</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">@_localizer["Verwijderen"]</a>
+                    }
                 </td>
             </tr>
         }

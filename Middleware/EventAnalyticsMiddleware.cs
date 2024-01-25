@@ -19,10 +19,12 @@ public class EventAnalyticsMiddleware
 
     public async Task Invoke(HttpContext context)
     {
+        Console.WriteLine("EventAnalyticsMiddleware is aangeroepen.");
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
         var eventId = context.Request.Query["eventId"];
+        Console.WriteLine($"Event ID: {eventId}");
         LogEventVisit(_httpContextAccessor.HttpContext, eventId);
 
         await _next(context);
@@ -67,4 +69,5 @@ public class EventAnalyticsMiddleware
         // Zorg ervoor dat de visitCount als string wordt opgeslagen
         context.Items[$"VisitCountString_{eventId}"] = visitCount.ToString();
     }
+
 }

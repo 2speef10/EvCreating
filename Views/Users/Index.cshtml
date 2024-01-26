@@ -2,12 +2,12 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer _localizer
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = @_localizer["Gebruikers"];
     string kommastring = "";
     string vertikaalStreepje = " | ";
 }
 
-<h1>Gebruikers</h1>
+<h1>@_localizer["Gebruikers"]</h1>
 
 <table class="table">
     <thead>

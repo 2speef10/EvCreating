@@ -150,6 +150,9 @@
   <data name="Selecteer waardering:" xml:space="preserve">
     <value>Selection note:</value>
   </data>
+  <data name="Veld is leeg" xml:space="preserve">
+    <value>Le champ est vide</value>
+  </data>
   <data name="Verwijderen" xml:space="preserve">
     <value>Supprimer</value>
   </data>

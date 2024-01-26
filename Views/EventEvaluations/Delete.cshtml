@@ -5,7 +5,7 @@
     ViewData["Title"] = @_localizer["Verwijderen"];
 }
 
-<h1>Verwijderen</h1>
+<h1>@_localizer["Verwijderen"]</h1>
 
 <h3>@_localizer["Weet u zeker dat je dit wilt verwijderen?"]</h3>
 <div>
@@ -46,7 +46,7 @@
 
     <form asp-action="@_localizer["Verwijderen"]">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Verwijderen" class="btn btn-danger" /> |
+        <input type="submit" value="@_localizer["Verwijderen"]" class="btn btn-danger" /> |
         <a asp-action="Index">@_localizer["Terug naar lijst"]</a>
     </form>
 </div>

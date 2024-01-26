@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using NETCore.MailKit.Infrastructure.Internal;
 using Microsoft.OpenApi.Models;
 using EvCreating.Middleware;
+using Microsoft.Extensions.Localization;
+
 
 namespace EvCreating
 {

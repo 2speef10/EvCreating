@@ -9,21 +9,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using Microsoft.Extensions.Localization;
 
-namespace GroupSpace23.Controllers
+namespace EvCreating.Controllers
 {
     [Authorize(Roles = "SystemAdministrator")]
-
     public class UsersController : Controller
     {
+        
+        private readonly EvCreatingContext _context;
 
-        EvCreatingContext _context;
-
-        public UsersController(EvCreatingContext context)
+        public UsersController(EvCreatingContext context )
         {
             _context = context;
+            
         }
-
 
         public IActionResult Index(string userName, string firstName, string lastName, string email)
         {
@@ -80,16 +81,32 @@ namespace GroupSpace23.Controllers
         public IActionResult Roles(string userName)
         {
             EvCreatingUser user = _context.Users.FirstOrDefault(u => u.UserName == userName);
-            UserRolesViewModel roleViewModel = new UserRolesViewModel
+
+            try
             {
-                UserName = userName,
-                Roles = (from userRole in _context.UserRoles
-                         where userRole.UserId == user.Id
-                         orderby userRole.RoleId
-                         select userRole.RoleId).ToList()
-            };
-            ViewData["AllRoles"] = new MultiSelectList(_context.Roles.OrderBy(r => r.Name), "Id", "Name", roleViewModel.Roles);
-            return View(roleViewModel);
+                UserRolesViewModel roleViewModel = new UserRolesViewModel
+                {
+                    UserName = userName,
+                    Roles = (from userRole in _context.UserRoles
+                             where userRole.UserId == user.Id
+                             orderby userRole.RoleId
+                             select userRole.RoleId).ToList()
+                };
+
+                ViewData["AllRoles"] = new MultiSelectList(_context.Roles.OrderBy(r => r.Name), "Id", "Name", roleViewModel.Roles);
+
+                return View(roleViewModel);
+            }
+            catch (Exception ex)
+            {
+                var errorViewModel = new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                    
+                };
+
+                return View("Error", errorViewModel);
+            }
         }
 
         [HttpPost]
@@ -111,6 +128,5 @@ namespace GroupSpace23.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }

@@ -132,4 +132,7 @@
   <data name="Soort" xml:space="preserve">
     <value>Soort</value>
   </data>
+  <data name="Veld is leeg" xml:space="preserve">
+    <value>Veld is leeg</value>
+  </data>
 </root>

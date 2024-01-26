@@ -9,22 +9,22 @@ namespace EvCreating.Models
     {
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "Naam is verplicht")]
+        [Required(ErrorMessage = "Veld is leeg")]
         [Display(Name = "Naam")]
         public string Naam { get; set; }
 
         [Display(Name = "Reactie datum")]
-        [Required(ErrorMessage = "Datum van de reactie is verplicht")]
+        [Required(ErrorMessage = "Veld is leeg")]
         [DataType(DataType.Date)]
         public DateTime ReactieDatum { get; set; }
 
         [Display(Name = "Waardering")]
-        [Required(ErrorMessage = "Waardering is verplicht")]
+        [Required(ErrorMessage = "Veld is leeg")]
         [Range(1, 5, ErrorMessage = "Waardering moet tussen 1 en 5 liggen")]
         public int Waardering { get; set; }
 
         [Display(Name = "Inhoud")]
-        [Required(ErrorMessage = "Inhoud is verplicht")]
+        [Required(ErrorMessage = "Veld is leeg")]
         public string Inhoud { get; set; }
 
         [Display(Name = "Geselecteerd Evenement")]

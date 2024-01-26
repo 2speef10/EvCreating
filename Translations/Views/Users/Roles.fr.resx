@@ -117,46 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bewerken" xml:space="preserve">
-    <value>Bewerken</value>
+  <data name="Bewaren" xml:space="preserve">
+    <value>Sauvegarder</value>
   </data>
-  <data name="Details" xml:space="preserve">
-    <value>Details</value>
-  </data>
-  <data name="Filteren" xml:space="preserve">
-    <value>Filteren</value>
-  </data>
-  <data name="Gebruiker" xml:space="preserve">
-    <value>Gebruiker</value>
-  </data>
-  <data name="Inhoud" xml:space="preserve">
-    <value>Inhoud</value>
-  </data>
-  <data name="Kies een waardering" xml:space="preserve">
-    <value>Kies een waardering</value>
-  </data>
-  <data name="Naam" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="Naam Evenement" xml:space="preserve">
-    <value>Naam Evenement</value>
-  </data>
-  <data name="Nieuwe maken" xml:space="preserve">
-    <value>Nieuwe maken</value>
-  </data>
-  <data name="Reactie datum" xml:space="preserve">
-    <value>Reactie datum</value>
-  </data>
-  <data name="Selecteer waardering:" xml:space="preserve">
-    <value>Selecteer waardering:</value>
-  </data>
-  <data name="Veld is leeg" xml:space="preserve">
-    <value>Veld is leeg</value>
-  </data>
-  <data name="Verwijderen" xml:space="preserve">
-    <value>Verwijderen</value>
-  </data>
-  <data name="Waardering" xml:space="preserve">
-    <value>Waardering</value>
+  <data name="Rollen wijzigen" xml:space="preserve">
+    <value>Modifier role</value>
   </data>
 </root>

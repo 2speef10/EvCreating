@@ -1,11 +1,12 @@
 ﻿
 @model UserRolesViewModel
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 @{
-    ViewData["Title"] = "Wijzigen rollen";
+    ViewData["Title"] = @_localizer["Rollen wijzigen"];
 }
 
-<h1>Wijzigen Rollen</h1>
+<h1>@_localizer["Rollen wijzigen"]</h1>
 <hr />
 
 <div class="row">
@@ -23,7 +24,7 @@
                 <select multiple="multiple" asp-for="Roles" class="form-control" asp-items="ViewBag.AllRoles"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Bewaren" class="btn btn-primary" />
+                <input type="submit" value="@_localizer["Bewaren"]" class="btn btn-primary" />
             </div>
         </form>
 

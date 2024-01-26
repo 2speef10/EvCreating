@@ -1,13 +1,14 @@
 ﻿@model EvCreating.Models.Event
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = @_localizer["Details"];
 }
 
-<h1>Details</h1>
+<h1>@_localizer["Details"]</h1>
 
 <div>
-    <h4>Evenement</h4>
+    <h4>@_localizer["Evenement"]</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -43,15 +44,15 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Bewerken</a> |
-    <a asp-action="Index">Terug naar lijst</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">@_localizer["Bewerken"]</a> |
+    <a asp-action="Index">@_localizer["Terug naar lijst"]</a>
 </div>
 
-<h2>Event Analytics</h2>
+<h2>@_localizer["Event analystic"]</h2>
 
 @if (ViewBag.EventVisits != null)
 {
-    <h3>Event Visits:</h3>
+    <h3>@_localizer["Event visit:"]</h3>
     <ul>
         @foreach (var visit in ViewBag.EventVisits)
         {
@@ -60,8 +61,8 @@
     </ul>
 }
 
-<h3>Visit Count:</h3>
-<p>@ViewBag.VisitCount keer bezocht</p>
+<h3>@_localizer["Visiteer door:"]</h3>
+<p>@ViewBag.VisitCount @_localizer["Keer bezocht"]</p>
 
 
 

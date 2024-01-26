@@ -1,5 +1,6 @@
-﻿
-@model IEnumerable<EvCreating.Models.UserIndexViewModel>
+﻿@model IEnumerable<EvCreating.Models.UserIndexViewModel>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 @{
     ViewData["Title"] = "Index";
     string kommastring = "";
@@ -12,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                @_localizer["User name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @_localizer["Voornaam"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @_localizer["Achternaam"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @_localizer["Email"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
+                @_localizer["Roles"]
             </th>
             <th></th>
         </tr>
@@ -75,12 +76,12 @@
             <td>
                 @if (item.Blocked)
                 {
-                        <a asp-action="UnBlock" asp-route-userName="@item.UserName">Deblokkeren</a>
+                        <a asp-action="UnBlock" asp-route-userName="@item.UserName">@_localizer["Deblokeren"]</a>
                     }
                     else
                     {
-                        <a asp-action="Block" asp-route-userName="@item.UserName">Blokkeren</a> @vertikaalStreepje
-                        <a asp-action="Roles" asp-route-userName="@item.UserName">Rollen</a>
+                        <a asp-action="Block" asp-route-userName="@item.UserName">@_localizer["Blokeren"]</a> @vertikaalStreepje
+                        <a asp-action="Roles" asp-route-userName="@item.UserName">@_localizer["Rol"]</a>
                     }
             </td>
          </tr>
